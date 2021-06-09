@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import Database.DatabaseHandler;
 import Model.User;
+import javafx.stage.StageStyle;
 
 public class ControllerAuthorization {
 
@@ -90,6 +91,7 @@ public class ControllerAuthorization {
         }
     }
 
+    private double x, y; // Used to drag screen
     private void openAdminView() {
         signInButton.getScene().getWindow().hide();
         FXMLLoader loader = new FXMLLoader();
@@ -103,6 +105,21 @@ public class ControllerAuthorization {
         Parent root = loader.getRoot();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        // Remove window frame
+        stage.initStyle(StageStyle.UNDECORATED);
+
+        //--Dragging screen--
+        root.setOnMousePressed(event -> {
+            x = event.getSceneX();
+            y = event.getSceneY();
+        });
+
+        root.setOnMouseDragged(event -> {
+            stage.setX(event.getScreenX() - x);
+            stage.setY(event.getScreenY() - y);
+
+        });
+        //--------------------
         stage.showAndWait();
     }
 
