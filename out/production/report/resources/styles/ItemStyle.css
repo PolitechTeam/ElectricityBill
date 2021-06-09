@@ -1,0 +1,8 @@
+.item {
+    -fx-background-color:  #D0DCFF;
+}
+
+.item:hover {
+    -fx-background-color : #C4D4FF;
+    -fx-cursor: hand;
+}
