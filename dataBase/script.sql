@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS `electricityreport`.`user` (
   `flat` INT NOT NULL,
   `house` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`iduser`),
-  UNIQUE INDEX `iduser_UNIQUE` (`iduser` ASC) VISIBLE,
-  UNIQUE INDEX `login_UNIQUE` (`login` ASC) VISIBLE)
+  UNIQUE INDEX `iduser_UNIQUE` (`iduser` ASC),
+  UNIQUE INDEX `login_UNIQUE` (`login` ASC))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `electricityreport`.`paymenthistory` (
   `electricity_indication` INT NOT NULL,
   `paymnet_date` DATE NOT NULL,
   PRIMARY KEY (`payment_id`),
-  INDEX `user_id_idx` (`user_id` ASC) VISIBLE,
+  INDEX `user_id_idx` (`user_id` ASC),
   CONSTRAINT `user_id`
     FOREIGN KEY (`user_id`)
     REFERENCES `electricityreport`.`user` (`iduser`))

@@ -8,41 +8,40 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox fx:id="userItem" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="53.0" prefWidth="745.0" spacing="40.0" stylesheets="@../styles/ItemStyle.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <Label fx:id="userIdLabel" prefHeight="18.0" prefWidth="67.0" text="001">
-            <HBox.margin>
-                <Insets left="20.0" />
-            </HBox.margin>
-            <graphic>
-                <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../images/user_id.png" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Label>
-        <Label fx:id="userLoginLabel" prefHeight="18.0" prefWidth="79.0" text="kamron">
-            <HBox.margin>
-                <Insets />
-            </HBox.margin></Label>
-        <Label fx:id="userPasswordLabel" prefHeight="18.0" prefWidth="71.0" text="123456">
-            <HBox.margin>
-                <Insets />
-            </HBox.margin>
-        </Label>
-        <Label fx:id="userNameLabel" prefHeight="18.0" prefWidth="130.0" text="Ботурхонов К. У.">
-            <HBox.margin>
-                <Insets />
-            </HBox.margin>
-        </Label>
-        <Label fx:id="userAddressLabel" prefHeight="18.0" prefWidth="278.0" text="Иркутск, ул. Академика Курчатова, 8А" />
-    </children>
+<HBox fx:id="userItem" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="53.0" prefWidth="745.0" spacing="40.0" stylesheets="@../styles/ItemStyle.css"
+      xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
     <effect>
-        <DropShadow blurType="GAUSSIAN" height="5.0" radius="2.0" width="5.0" />
+        <DropShadow blurType="GAUSSIAN" height="5.0" radius="2.0" width="5.0"/>
     </effect>
-   <styleClass>
-      <String fx:value="item" />
-      <String fx:value="user-item" />
-   </styleClass>
+    <styleClass>
+        <String fx:value="item"/>
+        <String fx:value="user-item"/>
+    </styleClass>
+    <Label fx:id="userIdLabel" prefHeight="18.0" prefWidth="67.0">
+        <HBox.margin>
+            <Insets left="20.0"/>
+        </HBox.margin>
+        <graphic>
+            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../images/user_id.png"/>
+            </ImageView>
+        </graphic>
+    </Label>
+    <Label fx:id="userLoginLabel" prefHeight="18.0" prefWidth="79.0">
+        <HBox.margin>
+            <Insets/>
+        </HBox.margin>
+    </Label>
+    <Label fx:id="userPasswordLabel" prefHeight="18.0" prefWidth="71.0">
+        <HBox.margin>
+            <Insets/>
+        </HBox.margin>
+    </Label>
+    <Label fx:id="userNameLabel" prefHeight="18.0" prefWidth="130.0">
+        <HBox.margin>
+            <Insets/>
+        </HBox.margin>
+    </Label>
+    <Label fx:id="userAddressLabel" prefHeight="18.0" prefWidth="278.0"/>
 </HBox>

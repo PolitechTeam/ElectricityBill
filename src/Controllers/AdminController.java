@@ -1,5 +1,7 @@
 package Controllers;
 
+import Database.DatabaseHandler;
+import Model.User;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,11 +18,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
 
 public class AdminController implements Initializable {
 
@@ -99,10 +102,29 @@ public class AdminController implements Initializable {
     }
 
     private void initializeUsers() {
+        DatabaseHandler dbHandler = new DatabaseHandler();
+        List<User> users = dbHandler.getAllUsers();
+
         try {
             userItems = new ArrayList<>();
-            for (int i = 0; i < 7; i++) {
-                HBox item = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../resources/fxml/UserItem.fxml")));
+
+            for (int i = 0; i < users.size(); i++) {
+                User user = users.get(i);
+
+                HBox item = FXMLLoader.load(Objects.requireNonNull(
+                        getClass().getResource("../resources/fxml/UserItem.fxml")));
+                Label userId = (Label) item.lookup("#userIdLabel");
+                Label userLogin = (Label) item.lookup("#userLoginLabel");
+                Label userPassword= (Label) item.lookup("#userPasswordLabel");
+                Label userName = (Label) item.lookup("#userNameLabel");
+                Label userAddress = (Label) item.lookup("#userAddressLabel");
+
+                userId.setText(String.valueOf(user.getId()));
+                userLogin.setText(user.getLogin());
+                userPassword.setText(user.getPassword());
+                userName.setText(user.getFIO());
+                userAddress.setText(user.getAddress());
+
                 userItems.add(item);
                 item.setOnMouseClicked(this::handleUserSelection);
                 pnUserItems.getChildren().add(userItems.get(i));
@@ -123,7 +145,7 @@ public class AdminController implements Initializable {
         delUserButton.setDisable(false);
     }
 
-    public void handleDelUser(MouseEvent event) {
+    public void handleDelUser() {
         userItems.remove(selectedUserItem);
         pnUserItems.getChildren().remove(selectedUserItem);
         selectedUserItem = null;
@@ -137,8 +159,8 @@ public class AdminController implements Initializable {
     }
 
     private void fillHistoryPane() {
-        for (int i = 0; i < historyItems.size(); i++) {
-            pnHistoryItems.getChildren().add(historyItems.get(i));
+        for (HBox historyItem : historyItems) {
+            pnHistoryItems.getChildren().add(historyItem);
         }
     }
 
@@ -177,6 +199,7 @@ public class AdminController implements Initializable {
     public void handleNewUserClick(ActionEvent actionEvent) {
         // TODO Search login for existence. If login exists, show error in the error label
         if (isFullyFilled()) {
+            System.out.println();
             // TODO Add new user
         } else {
             errorLabel.setText("Заполните все необходимые поля");
@@ -185,16 +208,13 @@ public class AdminController implements Initializable {
     }
 
     private boolean isFullyFilled() {
-        if (loginInput.getText().isEmpty()
-                || passwordInput.getText().isEmpty()
-                || nameInput.getText().isEmpty()
-                || surnameInput.getText().isEmpty()
-                || fatherNameInput.getText().isEmpty()
-                || cityInput.getText().isEmpty()
-                || streetInput.getText().isEmpty()
-                || houseInput.getText().isEmpty())
-            return false;
-        else
-            return true;
+        return !loginInput.getText().isEmpty()
+            && !passwordInput.getText().isEmpty()
+            && !nameInput.getText().isEmpty()
+            && !surnameInput.getText().isEmpty()
+            && !fatherNameInput.getText().isEmpty()
+            && !cityInput.getText().isEmpty()
+            && !streetInput.getText().isEmpty()
+            && !houseInput.getText().isEmpty();
     }
 }

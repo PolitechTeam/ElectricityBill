@@ -17,7 +17,8 @@ public class User {
 
     }
 
-    public User(int id, String login, String password, String name, String surname, String fathername, String city, String street, int flat, String house) {
+    public User(int id, String login, String password, String name, String surname,
+                String fathername, String city, String street, int flat, String house) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -28,6 +29,14 @@ public class User {
         this.street = street;
         this.flat = flat;
         this.house = house;
+    }
+
+    public String getFIO() {
+        return surname + " " + name.substring(0, 1).toUpperCase() + ". " + fathername.substring(0, 1).toUpperCase() + ".";
+    }
+
+    public String getAddress() {
+        return "г. " + city + ", ул. " + street + ", д. " + house + ", кв. " + flat;
     }
 
     public String getLogin() {
