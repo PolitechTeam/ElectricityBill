@@ -1,0 +1,25 @@
+Aspose.Cells for Java, MS Excel Spreadsheet management library.
+==========================================================================
+
+This distribution contains the following directories:
+
+- lib      : component's main jar and other libraries used by the component for special functionality and operations
+- doc      : the documentation in html format
+
+
+For reference please check doc/indexJavaDoc.html.
+
+
+
+Required Software and Libraries
+===============================
+- Java runtime 1.6 or above
+
+
+Programmer's Guide
+======================
+https://docs.aspose.com/display/cellsjava/Home
+
+http://www.aspose.com/
+
+Copyright (c) 2004-2021 Aspose Pty Ltd. All Rights Reserved.
