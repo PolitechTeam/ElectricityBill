@@ -35,6 +35,10 @@ public class User {
         return surname + " " + name.substring(0, 1).toUpperCase() + ". " + fatherName.substring(0, 1).toUpperCase() + ".";
     }
 
+    public String getFullName() {
+        return surname + " " + name + " " + fatherName;
+    }
+
     public String getAddress() {
         return "г. " + city + ", ул. " + street + ", д. " + house + ", кв. " + flat;
     }
