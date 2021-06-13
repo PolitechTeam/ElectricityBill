@@ -187,6 +187,10 @@ public final class DatabaseHandler {
             statement.setInt(2, indication);
             statement.setDate(3, paymentDate);
             statement.execute();
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                id = generatedKeys.getInt(1);
+            }
         } catch (SQLException exception) {
             System.err.println(exception.getMessage());
         }
