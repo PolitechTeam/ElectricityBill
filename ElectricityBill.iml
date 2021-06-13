@@ -9,5 +9,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jfoenix-8.0.10" level="project" />
     <orderEntry type="library" name="mysql-connector-java-8.0.24" level="project" />
+    <orderEntry type="library" name="aspose-cells-21.5" level="project" />
+    <orderEntry type="library" name="h2-1.4.200" level="project" />
+    <orderEntry type="library" name="poi-integration-5.0.0" level="project" />
   </component>
 </module>

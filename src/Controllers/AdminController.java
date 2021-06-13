@@ -2,7 +2,6 @@ package Controllers;
 
 import Database.DatabaseHandler;
 import Model.User;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,48 +17,36 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class AdminController implements Initializable {
 
     @FXML
     private VBox pnHistoryItems;
-
     @FXML
     private VBox pnUserItems;
-
     @FXML
     private Button btnHome;
-
     @FXML
     private Button btnHistory;
-
     @FXML
     private Button btnNewUser;
-
     @FXML
     private Button btnUsers;
-
     @FXML
     private Button btnSignOut;
-
     @FXML
     private Pane pnlHome;
-
     @FXML
     private Pane pnlHistory;
-
     @FXML
     private Pane pnlNewUser;
-
     @FXML
     private Pane pnlUsers;
-
     @FXML
     private Button delUserButton;
 
@@ -91,10 +78,14 @@ public class AdminController implements Initializable {
     private List<HBox> userItems;
     private HBox selectedUserItem;
 
+    DatabaseHandler dbHandler;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         pnlHome.toFront();
+
+        System.out.println("initializing database");
+        dbHandler = DatabaseHandler.getDataBase(); // initializing database
 
         initializeHistory();
         initializeUsers();
@@ -102,9 +93,8 @@ public class AdminController implements Initializable {
     }
 
     private void initializeUsers() {
-        DatabaseHandler dbHandler = new DatabaseHandler();
         List<User> users = dbHandler.getAllUsers();
-
+        pnUserItems.getChildren().clear();
         try {
             userItems = new ArrayList<>();
 
@@ -115,7 +105,7 @@ public class AdminController implements Initializable {
                         getClass().getResource("../resources/fxml/UserItem.fxml")));
                 Label userId = (Label) item.lookup("#userIdLabel");
                 Label userLogin = (Label) item.lookup("#userLoginLabel");
-                Label userPassword= (Label) item.lookup("#userPasswordLabel");
+                Label userPassword = (Label) item.lookup("#userPasswordLabel");
                 Label userName = (Label) item.lookup("#userNameLabel");
                 Label userAddress = (Label) item.lookup("#userAddressLabel");
 
@@ -151,6 +141,7 @@ public class AdminController implements Initializable {
         selectedUserItem = null;
         delUserButton.setDisable(true);
     }
+
     @FXML
     private DatePicker datePicker;
 
@@ -191,7 +182,7 @@ public class AdminController implements Initializable {
 
         }
         if (actionEvent.getSource() == btnSignOut) {
-            Stage stage = (Stage)btnSignOut.getScene().getWindow();
+            Stage stage = (Stage) btnSignOut.getScene().getWindow();
             stage.close();
         }
     }
@@ -199,22 +190,43 @@ public class AdminController implements Initializable {
     public void handleNewUserClick(ActionEvent actionEvent) {
         // TODO Search login for existence. If login exists, show error in the error label
         if (isFullyFilled()) {
-            System.out.println();
             // TODO Add new user
+            String login = loginInput.getText();
+            String password = passwordInput.getText();
+            String firstName = nameInput.getText();
+            String surName = surnameInput.getText();
+            String fatherName = fatherNameInput.getText();
+            String city = cityInput.getText();
+            String street = streetInput.getText();
+            String house = houseInput.getText();
+            int flat = 0;
+            if (!flatInput.getText().isEmpty()) {
+                try {
+                    flat = Integer.parseInt(flatInput.getText());
+                } catch (NumberFormatException exception) {
+                    showErrorLabel("Неверный формат номера квартиры");
+                    return;
+                }
+            }
+            System.out.println(dbHandler.addUser(login, password, firstName, surName, fatherName, city, street, house, flat));
         } else {
-            errorLabel.setText("Заполните все необходимые поля");
-            errorLabel.setVisible(true);
+            showErrorLabel("Заполните все необходимые поля");
         }
+    }
+
+    private void showErrorLabel(String err) {
+        errorLabel.setText(err);
+        errorLabel.setVisible(true);
     }
 
     private boolean isFullyFilled() {
         return !loginInput.getText().isEmpty()
-            && !passwordInput.getText().isEmpty()
-            && !nameInput.getText().isEmpty()
-            && !surnameInput.getText().isEmpty()
-            && !fatherNameInput.getText().isEmpty()
-            && !cityInput.getText().isEmpty()
-            && !streetInput.getText().isEmpty()
-            && !houseInput.getText().isEmpty();
+                && !passwordInput.getText().isEmpty()
+                && !nameInput.getText().isEmpty()
+                && !surnameInput.getText().isEmpty()
+                && !fatherNameInput.getText().isEmpty()
+                && !cityInput.getText().isEmpty()
+                && !streetInput.getText().isEmpty()
+                && !houseInput.getText().isEmpty();
     }
 }

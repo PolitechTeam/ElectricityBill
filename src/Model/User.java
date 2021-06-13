@@ -7,24 +7,24 @@ public class User {
     private String password;
     private String name;
     private String surname;
-    private String fathername;
+    private String fatherName;
     private String city;
     private String street;
-    private int flat;
     private String house;
+    private int flat;
 
     public User(){
 
     }
 
     public User(int id, String login, String password, String name, String surname,
-                String fathername, String city, String street, int flat, String house) {
+                String fatherName, String city, String street, String house, int flat) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.fathername = fathername;
+        this.fatherName = fatherName;
         this.city = city;
         this.street = street;
         this.flat = flat;
@@ -32,7 +32,7 @@ public class User {
     }
 
     public String getFIO() {
-        return surname + " " + name.substring(0, 1).toUpperCase() + ". " + fathername.substring(0, 1).toUpperCase() + ".";
+        return surname + " " + name.substring(0, 1).toUpperCase() + ". " + fatherName.substring(0, 1).toUpperCase() + ".";
     }
 
     public String getAddress() {
@@ -79,12 +79,12 @@ public class User {
         this.surname = surname;
     }
 
-    public String getFathername() {
-        return fathername;
+    public String getFatherName() {
+        return fatherName;
     }
 
-    public void setFathername(String fathername) {
-        this.fathername = fathername;
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
     }
 
     public String getCity() {
