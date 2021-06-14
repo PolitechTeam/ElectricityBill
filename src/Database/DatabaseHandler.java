@@ -238,7 +238,7 @@ public final class DatabaseHandler {
     //Получаем из базы данных расход электроэнергии для пользователя за всё время.
     public int getUserConsumption(int userId){
         int currentConsumption = 1;
-        try(PreparedStatement statement = connection.prepareStatement("SELECT SUM(Indication) FROM `Bill` WHERE `UserId`=?")){
+        try(PreparedStatement statement = connection.prepareStatement("SELECT LAST 1 (Indication) FROM `Bill` WHERE `UserId`=?")){
             statement.setInt(1, userId);
             statement.execute();
             ResultSet resultSet = statement.getResultSet();

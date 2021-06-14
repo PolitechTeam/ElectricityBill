@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -22,9 +23,11 @@ import parsing.ExcelParser;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
+
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -32,6 +35,10 @@ public class UserController implements Initializable {
 
     @FXML
     public Label lblGreeting;
+    @FXML
+    public TextField txtFieldConsumption;
+    @FXML
+    public Label lblFotoInfo;
     @FXML
     private ResourceBundle resources;
 
@@ -95,8 +102,6 @@ public class UserController implements Initializable {
     @FXML
     private Label lblStreet;
 
-    @FXML
-    private TextArea txtAreaConsumption;
 
     @FXML
     private JFXButton btnGenBill;
@@ -124,6 +129,13 @@ public class UserController implements Initializable {
         lblCurrentConsumption.setText(currentConsumption + " кВт. ч.");
         initializeHistory();
         pnlHome.toFront();
+        btnGenBill.setDisable(true);
+
+        btnGenBill.setOnAction(event -> initializeReceipt());
+
+        btnGiveConsumption.setOnAction(event -> {
+            btnGenBill.setDisable(false);
+        });
     }
 
     private void initializeHistory() {
@@ -174,7 +186,6 @@ public class UserController implements Initializable {
     public void handleClicks(ActionEvent actionEvent) {
         Object source = actionEvent.getSource();
         if (source == btnSectionGenBill) {
-            initializeReceipt();
             pnlGenBill.toFront();
         }
         if (source == btnSectionAccount) {
@@ -194,6 +205,7 @@ public class UserController implements Initializable {
     }
 
     private void fillUserInfo(){
+        lblFotoInfo.setText(user.getName() + " " + user.getFatherName());
         lblGreeting.setText("Добро пожаловать, " + user.getName() + " " + user.getFatherName() + "!");
         lblUserNumber.setText("ИНВ" + user.getId());
         lblInitials.setText(user.getFullName());
@@ -201,5 +213,9 @@ public class UserController implements Initializable {
         lblStreet.setText(user.getStreet());
         lblHouse.setText(user.getHouse());
         lblFlat.setText(user.getFlat() + "");
+    }
+
+    private void genBill(){
+
     }
 }

@@ -33,7 +33,7 @@
                <VBox.margin>
                   <Insets bottom="10.0" top="50.0" />
                </VBox.margin></ImageView>
-            <Label text="Jimmy Fallon" textFill="#e7e5e5">
+            <Label fx:id="lblFotoInfo" text="Jimmy Fallon" textFill="#e7e5e5">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
@@ -166,6 +166,98 @@
                   </ScrollPane>
                </children>
             </Pane>
+            <Pane fx:id="pnlGenBill" prefHeight="200.0" prefWidth="200.0" styleClass="pnlGenBill" stylesheets="@../styles/userViewStyle.css">
+               <children>
+                  <VBox prefHeight="576.0" prefWidth="793.0">
+                     <children>
+                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ECEFF1;">
+                           <children>
+                              <Label layoutX="67.0" layoutY="14.0" prefHeight="78.0" prefWidth="600.0" text="Рекомендуем подавать показания прибора учёта до 25 числа. Показания, переданные после 25 числа не будут приняты к рассчёту в текущем месяце." wrapText="true">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="28.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/warning.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                        <HBox prefHeight="135.0" prefWidth="793.0">
+                           <children>
+                              <Label minWidth="-Infinity" prefHeight="144.0" prefWidth="335.0" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css" text="Новое показание на :">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="30.0" top="50.0" />
+                                 </padding>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </Label>
+                              <Label fx:id="lblCurrentDate" prefHeight="135.0" prefWidth="458.0" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css" text="00.00.0000">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="10.0" top="50.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="120.0" prefWidth="793.0">
+                           <children>
+                              <Label maxWidth="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="335.0" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css" text="Введите новое показание (кВт. ч.)">
+                                 <padding>
+                                    <Insets left="30.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Pane minWidth="-Infinity" prefHeight="90.0" prefWidth="220.0" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css">
+                                 <children>
+                                    <TextField fx:id="txtFieldConsumption" layoutY="45.0" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="90.0" prefWidth="245.0" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css">
+                                 <children>
+                                    <JFXButton fx:id="btnGiveConsumption" buttonType="RAISED" layoutY="35.0" prefHeight="50.0" prefWidth="170.0" text="Передать показание" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="162.0" prefWidth="793.0">
+                           <children>
+                              <Label maxHeight="-Infinity" minWidth="-Infinity" prefHeight="163.0" prefWidth="335.0" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css" text="Текущий расход :">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="40.0" left="30.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="lblCurrentConsumption" minWidth="-Infinity" prefHeight="165.0" prefWidth="220.0" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css" text="000000 кВт. ч.">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="40.0" left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Pane prefHeight="90.0" prefWidth="245.0" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css">
+                                 <children>
+                                    <JFXButton fx:id="btnGenBill" buttonType="RAISED" layoutY="31.0" prefHeight="50.0" prefWidth="170.0" text="Получить квитанцию" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                        <Pane prefHeight="60.0" prefWidth="793.0" style="-fx-background-color: #ECEFF1;" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css" />
+                     </children>
+                  </VBox>
+               </children></Pane>
             <Pane fx:id="pnlAccount" prefHeight="200.0" prefWidth="200.0" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css">
                <children>
                   <VBox prefHeight="576.0" prefWidth="793.0">
@@ -185,7 +277,7 @@
                                  <children>
                                     <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css">
                                        <children>
-                                          <Label layoutX="30.0" layoutY="18.0" text="Номер лицевого счёта:">
+                                          <Label layoutX="30.0" layoutY="18.0" text="Номер лицевого счёта">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
@@ -194,7 +286,7 @@
                                     </Pane>
                                     <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.rowIndex="1">
                                        <children>
-                                          <Label layoutX="30.0" layoutY="18.0" text="Ф И О:">
+                                          <Label layoutX="30.0" layoutY="18.0" text="Ф.И.О.">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
@@ -314,101 +406,6 @@
                               </GridPane>
                            </children>
                         </Pane>
-                     </children>
-                  </VBox>
-               </children></Pane>
-            <Pane fx:id="pnlGenBill" prefHeight="200.0" prefWidth="200.0" styleClass="pnlGenBill" stylesheets="@../styles/userViewStyle.css">
-               <children>
-                  <VBox prefHeight="576.0" prefWidth="793.0">
-                     <children>
-                        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ECEFF1;">
-                           <children>
-                              <Label layoutX="67.0" layoutY="14.0" prefHeight="78.0" prefWidth="600.0" text="Рекомендуем подавать показания прибора учёта до 25 числа. Показания, переданные после 25 числа не будут приняты к рассчёту в текущем месяце." wrapText="true">
-                                 <font>
-                                    <Font size="17.0" />
-                                 </font>
-                              </Label>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="28.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/warning.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </AnchorPane>
-                        <HBox prefHeight="135.0" prefWidth="793.0">
-                           <children>
-                              <Label minWidth="-Infinity" prefHeight="144.0" prefWidth="335.0" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css" text="Новое показание на :">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="30.0" top="50.0" />
-                                 </padding>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                              </Label>
-                              <Label fx:id="lblCurrentDate" prefHeight="135.0" prefWidth="458.0" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css" text="00.00.0000">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="10.0" top="50.0" />
-                                 </padding>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="120.0" prefWidth="793.0">
-                           <children>
-                              <Label maxWidth="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="335.0" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css" text="Введите новое показание (кВт. ч.)">
-                                 <padding>
-                                    <Insets left="30.0" />
-                                 </padding>
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                              <Pane minWidth="-Infinity" prefHeight="90.0" prefWidth="220.0" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css">
-                                 <children>
-                                    <TextArea fx:id="txtAreaConsumption" layoutY="40.0" maxHeight="-Infinity" prefHeight="40.0" prefWidth="200.0" style="-fx-border-color: #000000;">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font></TextArea>
-                                 </children>
-                              </Pane>
-                              <Pane prefHeight="90.0" prefWidth="245.0" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css">
-                                 <children>
-                                    <JFXButton fx:id="btnGiveConsumption" buttonType="RAISED" layoutY="32.0" prefHeight="50.0" prefWidth="170.0" text="Передать показание" />
-                                 </children>
-                              </Pane>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="162.0" prefWidth="793.0">
-                           <children>
-                              <Label maxHeight="-Infinity" minWidth="-Infinity" prefHeight="163.0" prefWidth="335.0" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css" text="Текущий расход :">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets bottom="40.0" left="30.0" />
-                                 </padding>
-                              </Label>
-                              <Label fx:id="lblCurrentConsumption" minWidth="-Infinity" prefHeight="165.0" prefWidth="220.0" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css" text="000000 кВт. ч.">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets bottom="40.0" left="10.0" />
-                                 </padding>
-                              </Label>
-                              <Pane prefHeight="90.0" prefWidth="245.0" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css">
-                                 <children>
-                                    <JFXButton fx:id="btnGenBill" buttonType="RAISED" layoutY="31.0" prefHeight="50.0" prefWidth="170.0" text="Получить квитанцию" />
-                                 </children>
-                              </Pane>
-                           </children>
-                        </HBox>
-                        <Pane prefHeight="60.0" prefWidth="793.0" style="-fx-background-color: #ECEFF1;" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css" />
                      </children>
                   </VBox>
                </children></Pane>
