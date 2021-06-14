@@ -83,7 +83,6 @@ public class ControllerAuthorization {
         try {
             loader.load();
         } catch (IOException ex) {
-            System.out.println("Ошибка при загрузке файла userView.fxml");
             ex.printStackTrace();
         }
         Parent root = loader.getRoot();

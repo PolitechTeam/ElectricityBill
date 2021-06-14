@@ -101,13 +101,15 @@ public final class DatabaseHandler {
         return users;
     }
 
-    public void deleteUser(int id) {
+    public boolean deleteUser(int id) {
         try (PreparedStatement statement = connection.prepareStatement("DELETE FROM `User` where id = ?")) {
             statement.setInt(1, id);
             statement.execute();
+            return true;
         } catch (SQLException ex) {
             System.out.println(ex);
         }
+        return false;
     }
 
     public int addUser(String login, String password, String firstName, String surname, String fatherName,
@@ -154,6 +156,22 @@ public final class DatabaseHandler {
         } catch (SQLException exception) {
             System.err.println(exception.getMessage());
         }
+    }
+
+    public boolean hasUserWithLogin(String login) {
+        try(PreparedStatement statement = connection.prepareStatement("SELECT COUNT (*) FROM `User` WHERE `login` = ?")) {
+            statement.setString(1, login);
+            statement.execute();
+            final ResultSet count = statement.getResultSet();
+            if (count.next()) {
+                if (count.getInt(1) > 0) {
+                    return true;
+                }
+            }
+        } catch (SQLException exception) {
+            System.err.println(exception.getMessage());
+        }
+        return false;
     }
 
     //-------------------------------------------Bill-------------------------------------------------------------------

@@ -16,13 +16,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import parsing.ExcelParser;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
@@ -150,18 +150,24 @@ public class UserController implements Initializable {
 
     private void initializeReceipt() {
         // TODO Переделать на получение данных из БД
+
+        final String PATH = "src/resources/receipts/";
+        final String IN_FILE_NAME = PATH + "in_receipt.xlsx";
+        final String OUT_FILE_NAME = PATH + "out_receipt.xlsx";
+        final String PDF_FILE_NAME = PATH + "receipt.pdf";
+
         int prevIndication = 1200;
         int currIndication = 1500;
 
-        if (!history.isEmpty()) {
-            prevIndication = history.get(history.size() - 1).getIndication();
-        }
+        Bill currBill = new Bill(1, user.getId(), currIndication, new Date());
 
-        Bill currBill = new Bill(1, user.getId(), currIndication, Date.valueOf(LocalDate.now()));
+        new Thread(() -> {
+            XSSFWorkbook book = ExcelParser.openFromXLSX(IN_FILE_NAME);
+            ExcelParser.writeToXLSX(book, user, currBill, prevIndication);
+            ExcelParser.saveToXLSX(book, OUT_FILE_NAME);
 
-        XSSFWorkbook book = ExcelParser.open("src/resources/xlsx/receipt.xlsx");
-        ExcelParser.write(book, user, currBill, prevIndication);
-        ExcelParser.save(book, "src/resources/xlsx/out_receipt.xlsx");
+            ExcelParser.saveToPDF(OUT_FILE_NAME, PDF_FILE_NAME);
+        }).start();
     }
 
 
@@ -182,7 +188,8 @@ public class UserController implements Initializable {
             pnlHome.toFront();
         }
         if (source == btnSignOut) {
-            Platform.exit();
+            Stage stage = (Stage) btnSignOut.getScene().getWindow();
+            stage.close();
         }
     }
 

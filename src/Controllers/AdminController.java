@@ -1,6 +1,7 @@
 package Controllers;
 
 import Database.DatabaseHandler;
+import Model.Bill;
 import Model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,10 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class AdminController implements Initializable {
 
@@ -73,12 +71,15 @@ public class AdminController implements Initializable {
     private TextField houseInput;
     @FXML
     private TextField flatInput;
+    @FXML
+    private Label successLabel;
 
     private List<HBox> historyItems;
     private List<HBox> userItems;
     private HBox selectedUserItem;
 
     DatabaseHandler dbHandler;
+    List<Bill> bills;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -86,10 +87,11 @@ public class AdminController implements Initializable {
 
         System.out.println("initializing database");
         dbHandler = DatabaseHandler.getDataBase(); // initializing database
-
-        initializeHistory();
+        bills = dbHandler.getAllBills();
+        initializeHistory(bills);
         initializeUsers();
         errorLabel.setVisible(false);
+        successLabel.setVisible(false);
     }
 
     private void initializeUsers() {
@@ -97,27 +99,8 @@ public class AdminController implements Initializable {
         pnUserItems.getChildren().clear();
         try {
             userItems = new ArrayList<>();
-
-            for (int i = 0; i < users.size(); i++) {
-                User user = users.get(i);
-
-                HBox item = FXMLLoader.load(Objects.requireNonNull(
-                        getClass().getResource("../resources/fxml/UserItem.fxml")));
-                Label userId = (Label) item.lookup("#userIdLabel");
-                Label userLogin = (Label) item.lookup("#userLoginLabel");
-                Label userPassword = (Label) item.lookup("#userPasswordLabel");
-                Label userName = (Label) item.lookup("#userNameLabel");
-                Label userAddress = (Label) item.lookup("#userAddressLabel");
-
-                userId.setText(String.valueOf(user.getId()));
-                userLogin.setText(user.getLogin());
-                userPassword.setText(user.getPassword());
-                userName.setText(user.getFIO());
-                userAddress.setText(user.getAddress());
-
-                userItems.add(item);
-                item.setOnMouseClicked(this::handleUserSelection);
-                pnUserItems.getChildren().add(userItems.get(i));
+            for (User user : users) {
+                addUserItem(user);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -135,9 +118,11 @@ public class AdminController implements Initializable {
         delUserButton.setDisable(false);
     }
 
-    public void handleDelUser() {
+    public void handleUserRemove() {
         userItems.remove(selectedUserItem);
         pnUserItems.getChildren().remove(selectedUserItem);
+        int selectedUserId = Integer.parseInt(((Label) selectedUserItem.lookup("#userIdLabel")).getText());
+        System.out.println(dbHandler.deleteUser(selectedUserId));
         selectedUserItem = null;
         delUserButton.setDisable(true);
     }
@@ -155,16 +140,53 @@ public class AdminController implements Initializable {
         }
     }
 
-    private void initializeHistory() {
+    private void initializeHistory(List<Bill> bills) {
         historyItems = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        pnHistoryItems.getChildren().clear();
+
+        for (Bill bill : bills) {
             try {
-                historyItems.add(FXMLLoader.load(getClass().getResource("../resources/fxml/HistoryItem.fxml")));
-                pnHistoryItems.getChildren().add(historyItems.get(i));
+                addHistoryItem(bill);
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
         }
+    }
+
+    private void addUserItem(User user) throws IOException {
+        HBox item = FXMLLoader.load(Objects.requireNonNull(
+                getClass().getResource("../resources/fxml/UserItem.fxml")));
+        Label userId = (Label) item.lookup("#userIdLabel");
+        Label userLogin = (Label) item.lookup("#userLoginLabel");
+        Label userPassword = (Label) item.lookup("#userPasswordLabel");
+        Label userName = (Label) item.lookup("#userNameLabel");
+        Label userAddress = (Label) item.lookup("#userAddressLabel");
+
+        userId.setText(String.valueOf(user.getId()));
+        userLogin.setText(user.getLogin());
+        userPassword.setText(user.getPassword());
+        userName.setText(user.getFIO());
+        userAddress.setText(user.getAddress());
+
+        userItems.add(item);
+        item.setOnMouseClicked(this::handleUserSelection);
+        pnUserItems.getChildren().add(item);
+    }
+
+    private void addHistoryItem(Bill bill) throws IOException {
+        HBox item = FXMLLoader.load(
+                getClass().getResource("../resources/fxml/HistoryItem.fxml"));
+        Label userId = (Label) item.lookup("#userId");
+        Label paymentDate = (Label) item.lookup("#paymentDate");
+        Label indication = (Label) item.lookup("#indication");
+
+
+        userId.setText(String.valueOf(bill.getUserId()));
+        paymentDate.setText(String.valueOf(bill.getPaymentDate()));
+        indication.setText(String.valueOf(bill.getIndication()));
+
+        historyItems.add(item);
+        pnHistoryItems.getChildren().add(item);
     }
 
     public void handleClicks(ActionEvent actionEvent) {
@@ -172,6 +194,7 @@ public class AdminController implements Initializable {
             pnlNewUser.toFront();
         }
         if (actionEvent.getSource() == btnUsers) {
+            clearFields();
             pnlUsers.toFront();
         }
         if (actionEvent.getSource() == btnHistory) {
@@ -179,7 +202,6 @@ public class AdminController implements Initializable {
         }
         if (actionEvent.getSource() == btnHome) {
             pnlHome.toFront();
-
         }
         if (actionEvent.getSource() == btnSignOut) {
             Stage stage = (Stage) btnSignOut.getScene().getWindow();
@@ -187,11 +209,23 @@ public class AdminController implements Initializable {
         }
     }
 
-    public void handleNewUserClick(ActionEvent actionEvent) {
-        // TODO Search login for existence. If login exists, show error in the error label
+    private void clearFields() {
+        loginInput.clear();
+        passwordInput.clear();
+        nameInput.clear();
+        surnameInput.clear();
+        fatherNameInput.clear();
+        cityInput.clear();
+        streetInput.clear();
+        houseInput.clear();
+        flatInput.clear();
+        errorLabel.setVisible(false);
+        successLabel.setVisible(false);
+    }
+
+    public void handleNewUserClick(ActionEvent actionEvent) throws IOException {
         if (isFullyFilled()) {
-            // TODO Add new user
-            String login = loginInput.getText();
+            String login = loginInput.getText().toLowerCase(Locale.ROOT);
             String password = passwordInput.getText();
             String firstName = nameInput.getText();
             String surName = surnameInput.getText();
@@ -200,6 +234,11 @@ public class AdminController implements Initializable {
             String street = streetInput.getText();
             String house = houseInput.getText();
             int flat = 0;
+            // Checking if we have user with identical login
+            if (dbHandler.hasUserWithLogin(login)) {
+                showErrorLabel("Пользователь с логином " + login + " уже сущ.");
+                return;
+            }
             if (!flatInput.getText().isEmpty()) {
                 try {
                     flat = Integer.parseInt(flatInput.getText());
@@ -208,15 +247,26 @@ public class AdminController implements Initializable {
                     return;
                 }
             }
-            System.out.println(dbHandler.addUser(login, password, firstName, surName, fatherName, city, street, house, flat));
+
+            int id = dbHandler.addUser(login, password, firstName, surName, fatherName, city, street, house, flat);
+            User user = new User(id, login, password, firstName, surName, fatherName, city, street, house, flat);
+            addUserItem(user);
+            showSuccessLabel("Успешно добавлен");
         } else {
             showErrorLabel("Заполните все необходимые поля");
         }
     }
 
+    private void showSuccessLabel(String s) {
+        errorLabel.setVisible(false);
+        successLabel.setText(s);
+        successLabel.setVisible(true);
+    }
+
     private void showErrorLabel(String err) {
         errorLabel.setText(err);
         errorLabel.setVisible(true);
+        successLabel.setVisible(false);
     }
 
     private boolean isFullyFilled() {
@@ -228,5 +278,20 @@ public class AdminController implements Initializable {
                 && !cityInput.getText().isEmpty()
                 && !streetInput.getText().isEmpty()
                 && !houseInput.getText().isEmpty();
+    }
+
+    public void datePickerHandler(ActionEvent actionEvent) {
+        if (datePicker.getValue() == null) {
+            initializeHistory(bills);
+            return;
+        }
+        final String date = datePicker.getValue().toString();
+        List<Bill> billList = new ArrayList<>();
+        for (Bill bill: bills) {
+            if (bill.getPaymentDate().toString().equals(date)) {
+                billList.add(bill);
+            }
+        }
+        initializeHistory(billList);
     }
 }
