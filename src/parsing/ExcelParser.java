@@ -9,6 +9,12 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Month;
+import java.time.format.TextStyle;
+import java.util.Date;
+import java.util.Locale;
 
 public class ExcelParser {
     private static XSSFSheet sheet;
@@ -39,9 +45,17 @@ public class ExcelParser {
         int currIndication = currBill.getIndication();
         String fullName = user.getFullName();
         String address = user.getAddress();
+        Date paymentDate = currBill.getPaymentDate();
+
+        String fullDate = getFullDate(paymentDate);
+        String monthNameDate = monthNameDate(paymentDate);
+        String endMonthDate = getEndOfMonthDate(paymentDate);
 
         sheet = book.getSheetAt(0);
         setStringValue(1, 13, address);
+        setStringValue(2, 1, monthNameDate);
+        setStringValue(13, 3, endMonthDate);
+        setStringValue(13, 14, fullDate);
         setStringValue(5, 3, fullName);
         setNumericValue(23, 12, TARIFF);
         setNumericValue(34, 4, prevIndication);
@@ -75,5 +89,25 @@ public class ExcelParser {
         XSSFRow row = sheet.getRow(rowIndex);
         XSSFCell cell = row.getCell(colIndex);
         cell.setCellValue(value);
+    }
+
+    private static String getFullDate(Date date) {
+        return new SimpleDateFormat("dd.MM.yyyy").format(date) + "г.";
+    }
+
+    private static String monthNameDate(Date date) {
+        String monthFormat = new SimpleDateFormat("MM").format(date);
+        Month month = Month.of(Integer.parseInt(monthFormat));
+        Locale rusLocale = Locale.forLanguageTag("ru");
+
+        String monthName = month.getDisplayName(TextStyle.FULL_STANDALONE, rusLocale);
+        String yearFormat = new SimpleDateFormat("yyyy").format(date);
+
+        return monthName + " " + yearFormat;
+    }
+
+    private static String getEndOfMonthDate(Date date) {
+        String dateFormat = new SimpleDateFormat("dd.MM.yyyy").format(date)  + "г.";
+        return dateFormat.replace(dateFormat.substring(0, 2), "31");
     }
 }

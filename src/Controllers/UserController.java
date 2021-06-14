@@ -17,7 +17,7 @@ import parsing.ExcelParser;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
+import java.util.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -80,29 +80,26 @@ public class UserController implements Initializable {
     }
 
     private void initializeReceipt() {
+        // TODO Переделать на получение данных из БД
+
         final String PATH = "src/resources/receipts/";
         final String IN_FILE_NAME = PATH + "in_receipt.xlsx";
         final String OUT_FILE_NAME = PATH + "out_receipt.xlsx";
         final String PDF_FILE_NAME = PATH + "receipt.pdf";
 
-        // TODO Переделать на получение данных из БД
         int prevIndication = 1200;
         int currIndication = 1500;
 
-        if (!history.isEmpty()) {
-            prevIndication = history.get(history.size() - 1).getIndication();
-        }
+        Bill currBill = new Bill(1, user.getId(), currIndication, new Date());
 
-        final Date TODAY = Date.valueOf(LocalDate.now());
-        Bill currBill = new Bill(1, user.getId(), currIndication, TODAY);
+        new Thread(() -> {
+            XSSFWorkbook book = ExcelParser.openFromXLSX(IN_FILE_NAME);
+            ExcelParser.writeToXLSX(book, user, currBill, prevIndication);
+            ExcelParser.saveToXLSX(book, OUT_FILE_NAME);
 
-        XSSFWorkbook book = ExcelParser.openFromXLSX(IN_FILE_NAME);
-        ExcelParser.writeToXLSX(book, user, currBill, prevIndication);
-        ExcelParser.saveToXLSX(book, OUT_FILE_NAME);
-
-        ExcelParser.saveToPDF(OUT_FILE_NAME, PDF_FILE_NAME);
+            ExcelParser.saveToPDF(OUT_FILE_NAME, PDF_FILE_NAME);
+        }).start();
     }
-
 
     public void handleClicks(ActionEvent actionEvent) {
         Object source = actionEvent.getSource();
