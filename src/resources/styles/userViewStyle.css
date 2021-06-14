@@ -2,6 +2,20 @@
 {
 -fx-background-color : #4B5ED7;
 }
+
+.pnlGenBill{
+-fx-background-color : #fff;
+}
+
+.backgroundGenBill{
+-fx-background-color : #EFF4FF;
+}
+
+.info-pane{
+-fx-border-width: 0 0 1 0;
+-fx-border-color: #C3C3C3;
+}
+
 #pnlHome{
 -fx-background-color : #EFF4FF;
 }

@@ -50,9 +50,9 @@ public class ControllerAuthorization {
             if (!loginText.equals("") && !passwordText.equals("")) {
                 if (loginText.equals(ADMIN_LOGIN) && passwordText.equals(ADMIN_PASSWORD)){
                     openAdminView();
-//                    openMenuView();
+                }else {
+                    signIn(loginText, passwordText);
                 }
-                signIn(loginText, passwordText);
             } else {
                 System.out.println("Проверьте логин и пароль!");
             }

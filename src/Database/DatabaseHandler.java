@@ -216,4 +216,22 @@ public final class DatabaseHandler {
         }
         return bills;
     }
+
+    //Получаем из базы данных расход электроэнергии для пользователя за всё время.
+    public int getUserConsumption(int userId){
+        int currentConsumption = 1;
+        try(PreparedStatement statement = connection.prepareStatement("SELECT SUM(Indication) FROM `Bill` WHERE `UserId`=?")){
+            statement.setInt(1, userId);
+            statement.execute();
+            ResultSet resultSet = statement.getResultSet();
+            while(resultSet.next()){
+                currentConsumption = resultSet.getInt(1);
+            }
+        }catch(SQLException ex){
+            System.out.println("Ошибка при запросе из базы данных суммы показаний счётчика");
+            ex.printStackTrace();
+        }
+        return currentConsumption;
+    }
+
 }
