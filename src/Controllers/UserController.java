@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import parsing.ExcelParser;
 
@@ -113,7 +114,8 @@ public class UserController implements Initializable {
             pnlHome.toFront();
         }
         if (source == btnSignOut) {
-            Platform.exit();
+            Stage stage = (Stage) btnSignOut.getScene().getWindow();
+            stage.close();
         }
     }
 }
