@@ -1,6 +1,5 @@
 package Database;
 
-
 import Model.Bill;
 import Model.User;
 import org.h2.tools.RunScript;
@@ -12,12 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class DatabaseHandler {
-
     private static DatabaseHandler instance;
-
     private static Connection connection;
-    private String DB_URL = "jdbc:h2:/" + System.getProperty("user.dir");
-    private String DB_DRIVER = "org.h2.Driver";
+    private final String DB_URL = "jdbc:h2:/" + System.getProperty("user.dir");
+    private final String DB_DRIVER = "org.h2.Driver";
 
     private DatabaseHandler() {
         System.out.println("Database constructor");
@@ -77,19 +74,19 @@ public final class DatabaseHandler {
         List<User> users = new ArrayList<>();
         try {
             PreparedStatement prepStat = connection.prepareStatement(dbRequest);
-            ResultSet resultSet = prepStat.executeQuery();
+            ResultSet rs = prepStat.executeQuery();
 
-            while (resultSet.next()) {
-                int userId = resultSet.getInt(1);
-                String login = resultSet.getString(2);
-                String password = resultSet.getString(3);
-                String firstName = resultSet.getString(4);
-                String surName = resultSet.getString(5);
-                String fatherName = resultSet.getString(6);
-                String city = resultSet.getString(7);
-                String street = resultSet.getString(8);
-                String house = resultSet.getString(9);
-                int flat = resultSet.getInt(10);
+            while (rs.next()) {
+                int userId = rs.getInt(1);
+                String login = rs.getString(2);
+                String password = rs.getString(3);
+                String firstName = rs.getString(4);
+                String surName = rs.getString(5);
+                String fatherName = rs.getString(6);
+                String city = rs.getString(7);
+                String street = rs.getString(8);
+                String house = rs.getString(9);
+                int flat = rs.getInt(10);
 
                 User user = new User(userId, login, password, firstName, surName, fatherName, city, street, house, flat);
                 users.add(user);
@@ -234,22 +231,4 @@ public final class DatabaseHandler {
         }
         return bills;
     }
-
-    //Получаем из базы данных расход электроэнергии для пользователя за всё время.
-    public int getUserConsumption(int userId){
-        int currentConsumption = 1;
-        try(PreparedStatement statement = connection.prepareStatement("SELECT LAST 1 (Indication) FROM `Bill` WHERE `UserId`=?")){
-            statement.setInt(1, userId);
-            statement.execute();
-            ResultSet resultSet = statement.getResultSet();
-            while(resultSet.next()){
-                currentConsumption = resultSet.getInt(1);
-            }
-        }catch(SQLException ex){
-            System.out.println("Ошибка при запросе из базы данных суммы показаний счётчика");
-            ex.printStackTrace();
-        }
-        return currentConsumption;
-    }
-
 }

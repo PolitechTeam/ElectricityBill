@@ -4,17 +4,17 @@ import Database.DatabaseHandler;
 import Model.Bill;
 import Model.User;
 import com.jfoenix.controls.JFXButton;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -25,11 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class UserController implements Initializable {
 
@@ -112,8 +108,8 @@ public class UserController implements Initializable {
     @FXML
     private Label lblInitials;
 
-
-    private List<Bill> history;
+    private List<Bill> bills;
+    private List<HBox> historyItems;
     private DatabaseHandler dbHandler;
     private User user;
 
@@ -121,41 +117,50 @@ public class UserController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         dbHandler = DatabaseHandler.getDataBase();
         user = ControllerAuthorization.getSignedInUser();
+        bills = dbHandler.getUserBills(user.getId());
 
         fillUserInfo();
-        String currentDate = new SimpleDateFormat("dd.MM.yyyy").format(Calendar.getInstance().getTime());
-        lblCurrentDate.setText(currentDate);
-        int currentConsumption = dbHandler.getUserConsumption(user.getId());
-        lblCurrentConsumption.setText(currentConsumption + " кВт. ч.");
         initializeHistory();
-        pnlHome.toFront();
+
+        String currentDate = new SimpleDateFormat("dd.MM.yyyy").format(new Date());
+        lblCurrentDate.setText(currentDate);
+
+        int currentConsumption = bills.get(bills.size() - 1).getIndication();
+        lblCurrentConsumption.setText(currentConsumption + " кВт. ч.");
+
         btnGenBill.setDisable(true);
-
         btnGenBill.setOnAction(event -> initializeReceipt());
+        btnGiveConsumption.setOnAction(event -> btnGenBill.setDisable(false));
 
-        btnGiveConsumption.setOnAction(event -> {
-            btnGenBill.setDisable(false);
-        });
+        pnlHome.toFront();
     }
 
     private void initializeHistory() {
-        // TODO Добавить логику отображения всех элементов истории на панель
-        history = dbHandler.getUserBills(user.getId());
+        historyItems = new ArrayList<>();
+        pnItems.getChildren().clear();
 
-        Node[] nodes = new Node[10];
-        for (int i = 0; i < nodes.length; i++) {
+        for (int i = 0; i < bills.size(); i++) {
+            Bill bill = bills.get(i);
+            int prevIndication = i != 0 ? bills.get(i - 1).getIndication() : 0;
+
             try {
+                HBox item = FXMLLoader.load(
+                        getClass().getResource("../resources/fxml/UserHistoryItem.fxml"));
+                Label paymentDate = (Label) item.lookup("#paymentDate");
+                Label indication = (Label) item.lookup("#indication");
+                Label consumedEnergy = (Label) item.lookup("#consumedEnergy");
 
-                final int j = i;
-                nodes[i] = FXMLLoader.load(getClass().getResource("../resources/fxml/UserHistoryItem.fxml"));
+                paymentDate.setText(String.valueOf(bill.getPaymentDate()));
+                indication.setText(String.valueOf(bill.getIndication()));
+                consumedEnergy.setText(String.valueOf(bill.getIndication() - prevIndication));
 
-                //give the items some effect
+                item.setOnMouseEntered(event -> item.setStyle("-fx-background-color : #C4D4FF"));
+                item.setOnMouseExited(event -> item.setStyle("-fx-background-color : #D0DCFF"));
 
-                nodes[i].setOnMouseEntered(event -> nodes[j].setStyle("-fx-background-color : #C4D4FF"));
-                nodes[i].setOnMouseExited(event -> nodes[j].setStyle("-fx-background-color : #D0DCFF"));
-                pnItems.getChildren().add(nodes[i]);
+                historyItems.add(item);
+                pnItems.getChildren().add(item);
             } catch (IOException e) {
-                e.printStackTrace();
+                System.err.println(e.getMessage());
             }
         }
     }
@@ -213,9 +218,5 @@ public class UserController implements Initializable {
         lblStreet.setText(user.getStreet());
         lblHouse.setText(user.getHouse());
         lblFlat.setText(user.getFlat() + "");
-    }
-
-    private void genBill(){
-
     }
 }
