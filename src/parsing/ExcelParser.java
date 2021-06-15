@@ -1,20 +1,24 @@
 package parsing;
 
+import Controllers.Utility;
 import Model.Bill;
 import Model.User;
 import com.aspose.cells.PdfSaveOptions;
 import com.aspose.cells.Workbook;
+import javafx.scene.control.ButtonType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.awt.*;
 import java.io.*;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Optional;
 
 public class ExcelParser {
     private static XSSFSheet sheet;
@@ -75,6 +79,14 @@ public class ExcelParser {
             book.save(pdfFileName, options);
             System.out.println("PDF-файл успешно сохранен!");
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void openPDF(String fileName) {
+        try {
+            Desktop.getDesktop().open(new File(fileName));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
