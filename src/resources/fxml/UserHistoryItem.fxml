@@ -17,16 +17,16 @@
                 <Insets left="10.0" />
             </HBox.margin>
         </ImageView>
-        <Label text="08.06.2021">
+        <Label fx:id="paymentDate" text="08.06.2021">
          <HBox.margin>
             <Insets left="-50.0" />
          </HBox.margin></Label>
-        <Label text="59000">
+        <Label fx:id="indication" text="59000">
             <HBox.margin>
                 <Insets />
             </HBox.margin>
         </Label>
-        <Label text="150">
+        <Label fx:id="consumedEnergy" text="150">
             <HBox.margin>
                 <Insets />
             </HBox.margin>
