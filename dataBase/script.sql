@@ -23,5 +23,3 @@ CREATE TABLE IF NOT EXISTS `Bill`
     CONSTRAINT `user_id` FOREIGN KEY (`UserId`) REFERENCES `User` (`Id`)
 );
 
-INSERT INTO User (Login, Password, Name, Surname, FatherName, City, Street, House, Flat)
-VALUES ('testUser', '123456', 'Владимир', 'Астафьев', 'Дмитриевич', 'Москва', 'Пролетарская', '15', 5);

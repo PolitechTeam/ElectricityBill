@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="63.0" minWidth="-Infinity" prefWidth="63.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="387.0" minWidth="10.0" prefWidth="256.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="281.0" />
   </columnConstraints>
   <rowConstraints>
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -19,71 +22,70 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css">
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <Label layoutX="30.0" layoutY="18.0" text="Номер лицевого счёта:">
+            <Label layoutX="14.0" layoutY="12.0" text="Номер лицевого счёта">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.rowIndex="1">
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <Label layoutX="30.0" layoutY="18.0" text="Ф И О:">
+            <Label layoutX="14.0" layoutY="12.0" text="Ф.И.О.">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.rowIndex="2">
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>
-            <Label layoutX="30.0" layoutY="18.0" text="Город">
+            <Label layoutX="14.0" layoutY="14.0" text="Город">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.rowIndex="3">
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <children>
-            <Label layoutX="30.0" layoutY="18.0" text="Улица">
+            <Label layoutX="14.0" layoutY="12.0" text="Улица">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.rowIndex="4">
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="5">
          <children>
-            <Label layoutX="30.0" layoutY="18.0" text="Дом">
+            <Label layoutX="14.0" layoutY="12.0" text="Дом">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.rowIndex="5">
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="6">
          <children>
-            <Label layoutX="30.0" layoutY="18.0" text="Квартира">
+            <Label layoutX="14.0" layoutY="14.0" text="Квартира">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="6" />
-      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="7">
+      <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="7">
          <children>
-            <JFXButton fx:id="btnEditPassword" layoutX="300.0" prefHeight="35.0" prefWidth="250.0" stylesheets="@../styles/userViewStyle.css" text="Сменить пароль" />
-            <JFXButton fx:id="btnEditProfile" layoutX="22.0" prefHeight="35.0" prefWidth="250.0" stylesheets="@../styles/userViewStyle.css" text="Редактировать профиль" />
+            <JFXButton fx:id="btnEditProfile" layoutY="18.0" prefHeight="35.0" prefWidth="200.0" stylesheets="@../styles/userViewStyle.css" text="Редактировать профиль" />
+            <JFXButton fx:id="btnEditPassword" layoutX="262.0" layoutY="18.0" prefHeight="35.0" prefWidth="200.0" stylesheets="@../styles/userViewStyle.css" text="Сменить пароль" />
          </children>
       </Pane>
-      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="1">
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <children>
             <Label fx:id="lblUserNumber" layoutY="18.0" text="000000">
                <font>
@@ -92,7 +94,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <children>
             <Label fx:id="lblInitials" layoutY="6.0" prefHeight="46.0" prefWidth="227.0" text="Фамилия Имя Отчество" wrapText="true">
                <font>
@@ -101,40 +103,124 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="lblCity" prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="2" GridPane.rowIndex="3">
          <children>
-            <Label layoutY="18.0" text="Город">
+            <Label fx:id="lblCity" layoutY="18.0" text="Город">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="lblStreet" prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="2" GridPane.rowIndex="4">
          <children>
-            <Label layoutY="18.0" text="Улица">
+            <Label fx:id="lblStreet" layoutY="18.0" text="Улица">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="lblHouse" prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="2" GridPane.rowIndex="5">
          <children>
-            <Label layoutY="18.0" text="Дом">
+            <Label fx:id="lblHouse" layoutY="18.0" text="Дом">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="lblFlat" prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="5">
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="2" GridPane.rowIndex="6">
          <children>
-            <Label layoutY="18.0" text="Квартира">
+            <Label fx:id="lblFlat" layoutY="18.0" text="Квартира">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
+         </children>
+      </Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="1">
+         <children>
+            <Label layoutY="14.0" text="Логин">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+         </children>
+      </Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.columnIndex="2">
+         <children>
+            <Label fx:id="lblLogin" layoutY="18.0" text="000000">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css">
+         <children>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="26.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/user_icon_32.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.rowIndex="1">
+         <children>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="23.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/padlock.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.rowIndex="2">
+         <children>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="24.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/name.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.rowIndex="3">
+         <children>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="25.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../ElectricityBill/src/resources/images/buildings.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.rowIndex="4">
+         <children>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="25.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/street.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.rowIndex="5">
+         <children>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="24.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/house.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="info-pane" stylesheets="@../styles/userViewStyle.css" GridPane.rowIndex="6">
+         <children>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="25.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../ElectricityBill/src/resources/images/flat.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>

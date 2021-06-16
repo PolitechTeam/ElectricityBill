@@ -142,4 +142,10 @@ public class ControllerAuthorization {
     public static User getSignedInUser() {
         return signedInUser;
     }
+
+    public static void updateUser(User user){
+        signedInUser = user;
+    }
+
+
 }
