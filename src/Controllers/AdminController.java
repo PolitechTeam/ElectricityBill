@@ -42,8 +42,6 @@ public class AdminController implements Initializable {
     @FXML
     private Button btnSignOut;
     @FXML
-    private Pane pnlHome;
-    @FXML
     private Pane pnlHistory;
     @FXML
     private Pane pnlNewUser;
@@ -87,7 +85,7 @@ public class AdminController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        pnlHome.toFront();
+        pnlUsers.toFront();
 
         System.out.println("initializing database");
         dbHandler = DatabaseHandler.getDataBase(); // initializing database
@@ -207,9 +205,6 @@ public class AdminController implements Initializable {
         }
         if (actionEvent.getSource() == btnHistory) {
             pnlHistory.toFront();
-        }
-        if (actionEvent.getSource() == btnHome) {
-            pnlHome.toFront();
         }
         if (actionEvent.getSource() == btnSignOut) {
             Stage stage = (Stage) btnSignOut.getScene().getWindow();

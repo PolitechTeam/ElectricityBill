@@ -1,36 +1,29 @@
 package Controllers;
 
+import Database.DatabaseHandler;
+import Model.User;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import Database.DatabaseHandler;
-import Model.User;
 import javafx.stage.StageStyle;
+
+import java.io.IOException;
+import java.util.Objects;
 
 public class ControllerAuthorization {
 
-    private final String ADMIN_LOGIN = "1";
-    private final String ADMIN_PASSWORD = "1";
+    private final String ADMIN_LOGIN = "admin";
+    private final String ADMIN_PASSWORD = "admin";
     @FXML
     public JFXButton closeButton;
     @FXML
     public Label wrongAuthorizationLabel;
-    @FXML
-    private ResourceBundle resources;
-    @FXML
-    private URL location;
     @FXML
     private JFXPasswordField passwordField;
     @FXML
@@ -40,6 +33,7 @@ public class ControllerAuthorization {
 
     private DatabaseHandler dbHandler;
     private static User signedInUser;
+    private static Stage mainStage;
 
     @FXML
     void initialize() {
@@ -63,6 +57,16 @@ public class ControllerAuthorization {
             stage.close();
         });
 
+    }
+
+    public static void showWindow(Stage primaryStage) throws IOException {
+        mainStage = primaryStage;
+        Parent root = FXMLLoader.load(
+                Objects.requireNonNull(ControllerAuthorization.class.getResource("../resources/fxml/AuthorizationView.fxml"))
+        );
+        mainStage.initStyle(StageStyle.UNDECORATED);
+        mainStage.setScene(new Scene(root, 712, 435));
+        mainStage.show();
     }
 
     private void signIn(String login, String password) {
@@ -104,6 +108,7 @@ public class ControllerAuthorization {
         });
         //--------------------
         stage.showAndWait();
+        mainStage.show();
     }
 
     private double x2, y2; // Used to drag screen
@@ -137,6 +142,7 @@ public class ControllerAuthorization {
         });
 
         stage.showAndWait();
+        mainStage.show();
     }
 
 

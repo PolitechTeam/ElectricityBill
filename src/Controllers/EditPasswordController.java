@@ -1,25 +1,17 @@
 package Controllers;
 
-import javafx.event.ActionEvent;
 import Database.DatabaseHandler;
-import javafx.stage.Stage;
+import Model.User;
 import com.jfoenix.controls.JFXButton;
-import javafx.scene.control.TextField;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import Model.User;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-public class EditPasswordController
-{
+public class EditPasswordController {
     private User user;
     @FXML
     public Label lblPassIsEmpty;
-    @FXML
-    private ResourceBundle resources;
-    @FXML
-    private URL location;
     @FXML
     private TextField txtFieldCopyNewPas;
     @FXML

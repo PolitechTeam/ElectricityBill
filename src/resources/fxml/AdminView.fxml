@@ -26,39 +26,21 @@
          <children>
             <ImageView fitHeight="73.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/admin-with-cogwheels.png" />
+                  <Image url="@../images/white-admin.png" />
                </image>
                <VBox.margin>
                   <Insets bottom="10.0" top="50.0" />
                </VBox.margin></ImageView>
-            <Label text="Admin" textFill="#e7e5e5">
+            <Label text="Администратор" textFill="#e7e5e5">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Label>
-            <Button fx:id="btnHome" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@../styles/adminViewStyle.css" text="Главная" textFill="#e7e5e5">
+            <Button fx:id="btnUsers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@../styles/adminViewStyle.css" text="Пользователи">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/home.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets left="20.0" />
-               </padding>
-            </Button>
-            <Button fx:id="btnHistory" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@../styles/adminViewStyle.css" text="История платежей">
-               <graphic>
-                  <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/history.png" />
+                        <Image url="@../images/account.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -78,11 +60,11 @@
                   <Insets left="20.0" />
                </padding>
             </Button>
-            <Button fx:id="btnUsers" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@../styles/adminViewStyle.css" text="Пользователи">
+            <Button fx:id="btnHistory" alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#handleClicks" prefHeight="42.0" prefWidth="259.0" stylesheets="@../styles/adminViewStyle.css" text="История платежей">
                <graphic>
                   <ImageView fitHeight="23.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/account.png" />
+                        <Image url="@../images/history.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -106,14 +88,6 @@
       </VBox>
       <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0">
          <children>
-            <Pane fx:id="pnlHome" prefHeight="200.0" prefWidth="200.0" styleClass="main-pane" stylesheets="@../styles/adminViewStyle.css">
-               <children>
-                  <Label layoutX="221.0" layoutY="31.0" text="Добро пожаловать">
-                     <font>
-                        <Font size="40.0" />
-                     </font>
-                  </Label>
-               </children></Pane>
             <Pane fx:id="pnlNewUser" layoutX="10.0" layoutY="10.0" prefHeight="554.0" prefWidth="793.0" styleClass="main-pane" stylesheets="@../styles/adminViewStyle.css">
                <children>
                   <Label layoutX="14.0" layoutY="32.0" text="Добавление нового пользователя" textFill="#000">

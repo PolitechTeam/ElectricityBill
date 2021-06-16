@@ -1,22 +1,18 @@
 package Controllers;
 
-import javafx.event.ActionEvent;
 import Database.DatabaseHandler;
-import javafx.stage.Stage;
 import Model.User;
 import com.jfoenix.controls.JFXButton;
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
 import java.net.URL;
-import javafx.fxml.FXML;
 import java.util.ResourceBundle;
 
 public class EditLoginController
 {
-    @FXML
-    private ResourceBundle resources;
-    @FXML
-    private URL location;
     @FXML
     private TextField txtFieldCopyNewLogin;
     @FXML

@@ -22,7 +22,6 @@ import javafx.stage.StageStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import parsing.ExcelParser;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 
@@ -41,77 +40,45 @@ public class UserController implements Initializable {
     @FXML
     public Label lblFotoInfo;
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
     private Pane pnlGenBill;
-
     @FXML
     private Label lblFlat;
-
     @FXML
     private Button btnSignOut;
-
     @FXML
     private Pane pnlHistory;
-
     @FXML
     private Label lblCurrentConsumption;
-
     @FXML
     private JFXButton btnGiveConsumption;
-
     @FXML
     private JFXButton btnEditPassword;
-
-    @FXML
-    private Button btnSectionHome;
-
     @FXML
     private Button btnSectionAccount;
-
     @FXML
     private VBox pnItems;
-
     @FXML
     private Pane pnlAccount;
-
     @FXML
     private Label lblCity;
-
     @FXML
     private Button btnSectionGenBill;
-
-    @FXML
-    private Pane pnlHome;
-
     @FXML
     private Button btnSectionHistory;
-
     @FXML
     private Label lblCurrentDate;
-
     @FXML
     private JFXButton btnEditLogin;
-
     @FXML
     private Label lblUserNumber;
-
     @FXML
     private Label lblStreet;
-
     @FXML
     private Label lblLogin;
-
     @FXML
     private JFXButton btnGenBill;
-
     @FXML
     private Label lblHouse;
-
     @FXML
     private Label lblInitials;
 
@@ -126,7 +93,7 @@ public class UserController implements Initializable {
         user = ControllerAuthorization.getSignedInUser();
         bills = dbHandler.getUserBills(user.getId());
 
-        btnGenBill.setDisable(true);
+//        btnGenBill.setDisable(true);
         btnGenBill.setOnAction(event -> generateReceipt());
         btnGiveConsumption.setOnAction(event -> addNewIndication());
         btnEditPassword.setOnAction(event -> openEditPasswordView());
@@ -150,7 +117,14 @@ public class UserController implements Initializable {
 
     private void addNewIndication() {
         if (!txtFieldConsumption.getText().isEmpty()) {
-            int newIndication = Integer.parseInt(txtFieldConsumption.getText());
+
+            int newIndication = 0;
+            try {
+                newIndication = Integer.parseInt(txtFieldConsumption.getText());
+            } catch (NumberFormatException e) {
+                Utility.showWarningDialog("Введены некорректные данные!");
+                return;
+            }
             txtFieldConsumption.setText("");
 
             if (newIndication > getLastIndication()) {
@@ -163,7 +137,7 @@ public class UserController implements Initializable {
 
                 System.out.println("Данные успешно занесены в БД!");
             } else {
-                System.err.println("Введены некорректные данные!");
+                Utility.showWarningDialog("Новые показания не могут быть меньше предыдущих");
             }
         }
     }
@@ -207,17 +181,17 @@ public class UserController implements Initializable {
         Bill currBill = bills.get(bills.size() - 1);
         int prevIndication = bills.size() > 1 ? bills.get(bills.size() - 2).getIndication() : 0;
 
-        new Thread(() -> {
-            btnGenBill.setDisable(true);
-            XSSFWorkbook book = ExcelParser.openFromXLSX(IN_FILE_NAME);
-            ExcelParser.writeToXLSX(book, user, currBill, prevIndication);
-            ExcelParser.saveToXLSX(book, OUT_FILE_NAME);
 
-            ExcelParser.saveToPDF(OUT_FILE_NAME, PDF_FILE_NAME);
-            btnGenBill.setDisable(false);
+        btnGenBill.setDisable(true);
+        XSSFWorkbook book = ExcelParser.openFromXLSX(IN_FILE_NAME);
+        ExcelParser.writeToXLSX(book, user, currBill, prevIndication);
+        ExcelParser.saveToXLSX(book, OUT_FILE_NAME);
 
-            ExcelParser.openPDF(PDF_FILE_NAME);
-        }).start();
+        ExcelParser.saveToPDF(OUT_FILE_NAME, PDF_FILE_NAME);
+        btnGenBill.setDisable(false);
+
+        ExcelParser.openPDF(PDF_FILE_NAME);
+
     }
 
     public void handleClicks(ActionEvent actionEvent) {
@@ -234,9 +208,7 @@ public class UserController implements Initializable {
             fillHistoryInfo();
             pnlHistory.toFront();
         }
-        if (source == btnSectionHome) {
-            pnlHome.toFront();
-        }
+
         if (source == btnSignOut) {
             Stage stage = (Stage) btnSignOut.getScene().getWindow();
             stage.close();
