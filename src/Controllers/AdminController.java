@@ -93,9 +93,11 @@ public class AdminController implements Initializable {
         errorLabel.setVisible(false);
         successLabel.setVisible(false);
     }
-
+    @FXML
+    private Label userCountLabel;
     private void initializeUsers() {
         List<User> users = dbHandler.getAllUsers();
+        userCountLabel.setText(String.valueOf(users.size()));
         pnUserItems.getChildren().clear();
         try {
             userItems = new ArrayList<>();
@@ -139,11 +141,12 @@ public class AdminController implements Initializable {
             pnHistoryItems.getChildren().add(historyItem);
         }
     }
-
+    @FXML
+    private Label billsCountLabel;
     private void initializeHistory(List<Bill> bills) {
         historyItems = new ArrayList<>();
         pnHistoryItems.getChildren().clear();
-
+        billsCountLabel.setText(String.valueOf(bills.size()));
         for (Bill bill : bills) {
             try {
                 addHistoryItem(bill);

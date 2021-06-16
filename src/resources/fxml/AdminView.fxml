@@ -106,68 +106,6 @@
       </VBox>
       <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0">
          <children>
-            <Pane fx:id="pnlUsers" layoutX="10.0" layoutY="10.0" prefHeight="554.0" prefWidth="793.0" styleClass="main-pane" stylesheets="@../styles/adminViewStyle.css">
-               <children>
-                  <Label layoutX="14.0" layoutY="32.0" text="Пользователи" textFill="#000">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="74.0" prefHeight="92.0" prefWidth="529.0" spacing="50.0">
-                     <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label text="22000" textFill="#000">
-                                 <font>
-                                    <Font name="System Bold" size="26.0" />
-                                 </font>
-                              </Label>
-                              <Label text="Total Orders" textFill="#000" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="175.0" prefHeight="42.0" prefWidth="746.0" spacing="50.0" styleClass="inner-container">
-                     <children>
-                        <Label text="ID">
-                           <HBox.margin>
-                              <Insets left="50.0" />
-                           </HBox.margin>
-                        </Label>
-                        <Label text="Логин">
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </Label>
-                        <Label text="Пароль">
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </Label>
-                        <Label text="ФИО">
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </Label>
-                        <Label text="Адрес">
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <ScrollPane layoutX="14.0" layoutY="232.0" prefHeight="320.0" prefWidth="746.0" stylesheets="@../styles/adminViewStyle.css">
-                     <content>
-                        <VBox fx:id="pnUserItems" prefHeight="318.0" prefWidth="744.0" spacing="5.0" styleClass="inner-container">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </VBox>
-                     </content>
-                  </ScrollPane>
-                  <Button fx:id="delUserButton" disable="true" layoutX="664.0" layoutY="105.0" mnemonicParsing="false" onMouseClicked="#handleUserRemove" prefHeight="31.0" prefWidth="96.0" text="Удалить" />
-               </children>
-            </Pane>
             <Pane fx:id="pnlHome" prefHeight="200.0" prefWidth="200.0" styleClass="main-pane" stylesheets="@../styles/adminViewStyle.css">
                <children>
                   <Label layoutX="221.0" layoutY="31.0" text="Добро пожаловать">
@@ -323,7 +261,7 @@
                                     <Font name="System Bold" size="26.0" />
                                  </font>
                               </Label>
-                              <Label text="Количество" textFill="#000" />
+                              <Label text="Квитанций" textFill="#000" />
                            </children>
                         </VBox>
                      </children>
@@ -383,6 +321,68 @@
                         </ImageView>
                      </children>
                   </HBox>
+               </children>
+            </Pane>
+            <Pane fx:id="pnlUsers" layoutX="10.0" layoutY="10.0" prefHeight="554.0" prefWidth="793.0" styleClass="main-pane" stylesheets="@../styles/adminViewStyle.css">
+               <children>
+                  <Label layoutX="14.0" layoutY="32.0" text="Пользователи" textFill="#000">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="74.0" prefHeight="92.0" prefWidth="529.0" spacing="50.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="92.0" prefWidth="118.0">
+                           <children>
+                              <Label fx:id="userCountLabel" text="0" textFill="#000">
+                                 <font>
+                                    <Font name="System Bold" size="26.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Пользователей" textFill="#000" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="175.0" prefHeight="42.0" prefWidth="746.0" spacing="50.0" styleClass="inner-container">
+                     <children>
+                        <Label text="ID">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label text="Логин">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label text="Пароль">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label text="ФИО">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label text="Адрес">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <ScrollPane layoutX="14.0" layoutY="232.0" prefHeight="320.0" prefWidth="746.0" stylesheets="@../styles/adminViewStyle.css">
+                     <content>
+                        <VBox fx:id="pnUserItems" prefHeight="318.0" prefWidth="744.0" spacing="5.0" styleClass="inner-container">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+                  <Button fx:id="delUserButton" disable="true" layoutX="664.0" layoutY="105.0" mnemonicParsing="false" onMouseClicked="#handleUserRemove" prefHeight="31.0" prefWidth="96.0" text="Удалить" />
                </children>
             </Pane>
          </children>
