@@ -22,11 +22,13 @@ import javafx.stage.StageStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import parsing.ExcelParser;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 
 public class UserController implements Initializable {
 
@@ -147,6 +149,7 @@ public class UserController implements Initializable {
     private void addNewIndication() {
         if (!txtFieldConsumption.getText().isEmpty()) {
             int newIndication = Integer.parseInt(txtFieldConsumption.getText());
+            txtFieldConsumption.setText("");
 
             if (newIndication > getLastIndication()) {
                 java.sql.Date now = new java.sql.Date(System.currentTimeMillis());
@@ -203,11 +206,15 @@ public class UserController implements Initializable {
         int prevIndication = bills.size() > 1 ? bills.get(bills.size() - 2).getIndication() : 0;
 
         new Thread(() -> {
+            btnGenBill.setDisable(true);
             XSSFWorkbook book = ExcelParser.openFromXLSX(IN_FILE_NAME);
             ExcelParser.writeToXLSX(book, user, currBill, prevIndication);
             ExcelParser.saveToXLSX(book, OUT_FILE_NAME);
 
             ExcelParser.saveToPDF(OUT_FILE_NAME, PDF_FILE_NAME);
+            btnGenBill.setDisable(false);
+
+            ExcelParser.openPDF(PDF_FILE_NAME);
         }).start();
     }
 
