@@ -9,6 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -16,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import parsing.ExcelParser;
 
@@ -33,6 +36,8 @@ public class UserController implements Initializable {
     public Label lblGreeting;
     @FXML
     public TextField txtFieldConsumption;
+    @FXML
+    private Label lblTotalOrders;
     @FXML
     public Label lblFotoInfo;
     @FXML
@@ -90,7 +95,7 @@ public class UserController implements Initializable {
     private Label lblCurrentDate;
 
     @FXML
-    private JFXButton btnEditProfile;
+    private JFXButton btnEditLogin;
 
     @FXML
     private Label lblUserNumber;
@@ -98,6 +103,8 @@ public class UserController implements Initializable {
     @FXML
     private Label lblStreet;
 
+    @FXML
+    private Label lblLogin;
 
     @FXML
     private JFXButton btnGenBill;
@@ -111,7 +118,7 @@ public class UserController implements Initializable {
     private List<Bill> bills;
     private List<HBox> historyItems;
     private DatabaseHandler dbHandler;
-    private User user;
+    private static User user;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -122,10 +129,14 @@ public class UserController implements Initializable {
         btnGenBill.setDisable(true);
         btnGenBill.setOnAction(event -> generateReceipt());
         btnGiveConsumption.setOnAction(event -> addNewIndication());
+        btnEditPassword.setOnAction(event -> openEditPasswordView());
+        btnEditLogin.setOnAction(event -> openEditLoginView());
+
 
         fillUserInfo();
         pnlAccount.toFront();
     }
+
 
     private void fillConsumptionInfo() {
         String currentDate = new SimpleDateFormat("dd.MM.yyyy").format(new Date());
@@ -160,7 +171,7 @@ public class UserController implements Initializable {
     private void fillHistoryInfo() {
         historyItems = new ArrayList<>();
         pnItems.getChildren().clear();
-
+        lblTotalOrders.setText(String.valueOf(bills.size()));
         for (int i = 0; i < bills.size(); i++) {
             Bill bill = bills.get(i);
             int prevIndication = i > 0 ? bills.get(i - 1).getIndication() : 0;
@@ -223,7 +234,7 @@ public class UserController implements Initializable {
             fillHistoryInfo();
             pnlHistory.toFront();
         }
-        if(source == btnSectionHome) {
+        if (source == btnSectionHome) {
             pnlHome.toFront();
         }
         if (source == btnSignOut) {
@@ -233,6 +244,8 @@ public class UserController implements Initializable {
     }
 
     private void fillUserInfo() {
+        ControllerAuthorization.getSignedInUser();
+        lblLogin.setText(user.getLogin());
         lblFotoInfo.setText(user.getName() + " " + user.getFatherName());
         lblGreeting.setText("Добро пожаловать, " + user.getName() + " " + user.getFatherName() + "!");
         lblUserNumber.setText("ИНВ" + user.getId());
@@ -241,5 +254,75 @@ public class UserController implements Initializable {
         lblStreet.setText(user.getStreet());
         lblHouse.setText(user.getHouse());
         lblFlat.setText(user.getFlat() + "");
+    }
+
+    private double xEditPas, yEditPas;
+    private void openEditPasswordView() {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/resources/fxml/editPasswordView.fxml"));
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            System.out.println("Ошибка при загрузке файла userView.fxml");
+            ex.printStackTrace();
+        }
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+
+        // Remove window frame
+        stage.initStyle(StageStyle.UNDECORATED);
+
+        //--Dragging screen--
+        root.setOnMousePressed(event -> {
+            xEditPas = event.getSceneX();
+            yEditPas = event.getSceneY();
+        });
+
+        root.setOnMouseDragged(event -> {
+            stage.setX(event.getScreenX() - xEditPas);
+            stage.setY(event.getScreenY() - yEditPas);
+
+        });
+        stage.showAndWait();
+        System.out.println("Вызов" );
+        fillUserInfo();
+    }
+
+    private double xEditLogin, yEditLogin;
+    private void openEditLoginView() {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/resources/fxml/editLoginView.fxml"));
+        try {
+            loader.load();
+        } catch (IOException ex) {
+            System.out.println("Ошибка при загрузке файла editLoginView.fxml");
+            ex.printStackTrace();
+        }
+        Parent root = loader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+
+        // Remove window frame
+        stage.initStyle(StageStyle.UNDECORATED);
+
+        //--Dragging screen--
+        root.setOnMousePressed(event -> {
+            xEditLogin = event.getSceneX();
+            yEditLogin = event.getSceneY();
+        });
+
+        root.setOnMouseDragged(event -> {
+            stage.setX(event.getScreenX() - xEditLogin);
+            stage.setY(event.getScreenY() - yEditLogin);
+
+        });
+        stage.showAndWait();
+        System.out.println("Вызов" );
+        fillUserInfo();
+    }
+
+    public static void setNewUser(User user){
+        UserController.user = user;
     }
 }
