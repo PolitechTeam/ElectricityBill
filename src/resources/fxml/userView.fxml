@@ -28,7 +28,7 @@
          <children>
             <ImageView fitHeight="73.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/jimmy-fallon.png" />
+                  <Image url="@../images/camera.png" />
                </image>
                <VBox.margin>
                   <Insets bottom="10.0" top="50.0" />
@@ -91,63 +91,6 @@
       <StackPane layoutX="258.0" prefHeight="576.0" prefWidth="793.0">
          <children>
             <Pane fx:id="pnlHome" prefHeight="200.0" prefWidth="200.0" stylesheets="@../styles/userViewStyle.css" />
-            <Pane fx:id="pnlHistory" prefHeight="554.0" prefWidth="793.0" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css">
-               <children>
-                  <Label layoutX="20.0" layoutY="33.0" text="История платежей" textFill="#000">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="74.0" prefHeight="92.0" prefWidth="661.0" spacing="50.0">
-                     <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label text="22000" textFill="#000">
-                                 <font>
-                                    <Font name="System Bold" size="26.0" />
-                                 </font>
-                              </Label>
-                              <Label text="Total Orders" textFill="#000" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="175.0" prefHeight="42.0" prefWidth="712.0" spacing="40.0" style="-fx-background-color: #E0E7F8;">
-                     <children>
-                        <Label text="Дата">
-                           <HBox.margin>
-                              <Insets left="50.0" />
-                           </HBox.margin>
-                        </Label>
-                        <Label text="Показание, кВт.ч">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Label>
-                        <Label text="Расход, кВт.ч ">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Label>
-                        <Label text="Статус показания">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Label>
-                        <Label text="Статус оплаты" />
-                     </children>
-                  </HBox>
-                  <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="232.0" prefHeight="320.0" prefWidth="746.0" stylesheets="@../styles/userViewStyle.css">
-                     <content>
-                        <VBox fx:id="pnItems" prefHeight="318.0" prefWidth="744.0" spacing="5.0" style="-fx-background-color: #E0E7F8;">
-                           <padding>
-                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                           </padding>
-                        </VBox>
-                     </content>
-                  </ScrollPane>
-               </children>
-            </Pane>
             <Pane fx:id="pnlGenBill" prefHeight="200.0" prefWidth="200.0" styleClass="pnlGenBill" stylesheets="@../styles/userViewStyle.css">
                <children>
                   <VBox prefHeight="576.0" prefWidth="793.0">
@@ -477,6 +420,63 @@
                      </children>
                   </VBox>
                </children></Pane>
+            <Pane fx:id="pnlHistory" prefHeight="554.0" prefWidth="793.0" styleClass="backgroundGenBill" stylesheets="@../styles/userViewStyle.css">
+               <children>
+                  <Label layoutX="20.0" layoutY="33.0" text="История платежей" textFill="#000">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="74.0" prefHeight="92.0" prefWidth="661.0" spacing="50.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="92.0" prefWidth="155.0">
+                           <children>
+                              <Label fx:id="lblTotalOrders" prefHeight="38.0" prefWidth="81.0" text="22000" textFill="#000">
+                                 <font>
+                                    <Font name="System Bold" size="26.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="21.0" prefWidth="144.0" text="Количество записей" textFill="#000" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="175.0" prefHeight="42.0" prefWidth="712.0" spacing="40.0" style="-fx-background-color: #E0E7F8;">
+                     <children>
+                        <Label text="Дата">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label text="Показание, кВт.ч">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <Label text="Расход, кВт.ч ">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <Label text="Статус показания">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                        <Label text="Статус оплаты" />
+                     </children>
+                  </HBox>
+                  <ScrollPane hbarPolicy="NEVER" layoutX="14.0" layoutY="232.0" prefHeight="320.0" prefWidth="746.0" stylesheets="@../styles/userViewStyle.css">
+                     <content>
+                        <VBox fx:id="pnItems" prefHeight="318.0" prefWidth="744.0" spacing="5.0" style="-fx-background-color: #E0E7F8;">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </Pane>
          </children>
       </StackPane>
    </children>

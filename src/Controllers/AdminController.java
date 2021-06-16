@@ -3,10 +3,13 @@ package Controllers;
 import Database.DatabaseHandler;
 import Model.Bill;
 import Model.User;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -16,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -92,6 +96,7 @@ public class AdminController implements Initializable {
         initializeUsers();
         errorLabel.setVisible(false);
         successLabel.setVisible(false);
+
     }
 
     private void initializeUsers() {
@@ -294,4 +299,6 @@ public class AdminController implements Initializable {
         }
         initializeHistory(billList);
     }
+
+
 }

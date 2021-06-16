@@ -139,6 +139,8 @@ public class ControllerAuthorization {
         stage.showAndWait();
     }
 
+
+
     public static User getSignedInUser() {
         return signedInUser;
     }

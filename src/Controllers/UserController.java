@@ -37,6 +37,8 @@ public class UserController implements Initializable {
     @FXML
     public TextField txtFieldConsumption;
     @FXML
+    private Label lblTotalOrders;
+    @FXML
     public Label lblFotoInfo;
     @FXML
     private ResourceBundle resources;
@@ -169,7 +171,7 @@ public class UserController implements Initializable {
     private void fillHistoryInfo() {
         historyItems = new ArrayList<>();
         pnItems.getChildren().clear();
-
+        lblTotalOrders.setText(String.valueOf(bills.size()));
         for (int i = 0; i < bills.size(); i++) {
             Bill bill = bills.get(i);
             int prevIndication = i > 0 ? bills.get(i - 1).getIndication() : 0;
