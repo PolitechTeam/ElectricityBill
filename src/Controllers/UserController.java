@@ -93,12 +93,10 @@ public class UserController implements Initializable {
         user = ControllerAuthorization.getSignedInUser();
         bills = dbHandler.getUserBills(user.getId());
 
-//        btnGenBill.setDisable(true);
         btnGenBill.setOnAction(event -> generateReceipt());
         btnGiveConsumption.setOnAction(event -> addNewIndication());
         btnEditPassword.setOnAction(event -> openEditPasswordView());
         btnEditLogin.setOnAction(event -> openEditLoginView());
-
 
         fillUserInfo();
         pnlAccount.toFront();

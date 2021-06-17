@@ -28,7 +28,6 @@ public class ExcelParser {
 
         try (InputStream fis = new FileInputStream(fileName)) {
             book = new XSSFWorkbook(fis);
-            System.out.println("Файл успешно загружен!");
         } catch (IOException e) {
             e.printStackTrace();
         } return book;
@@ -37,7 +36,6 @@ public class ExcelParser {
     public static void saveToXLSX(XSSFWorkbook book, String fileName) {
         try (OutputStream fis = new FileOutputStream(fileName)) {
             book.write(fis);
-            System.out.println("Файл успешно сохранен!");
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -65,7 +63,6 @@ public class ExcelParser {
         setNumericValue(34, 4, prevIndication);
         setNumericValue(34, 6, currIndication);
 
-        System.out.println("Данные успешно занесены!");
     }
 
     public static void saveToPDF(String xlsxFileName, String pdfFileName) {
@@ -75,11 +72,9 @@ public class ExcelParser {
             PdfSaveOptions options = new PdfSaveOptions();
             options.setOnePagePerSheet(true);
             options.setCalculateFormula(true);
-
             book.save(pdfFileName, options);
-            System.out.println("PDF-файл успешно сохранен!");
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 

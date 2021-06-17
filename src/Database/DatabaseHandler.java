@@ -17,17 +17,12 @@ public final class DatabaseHandler {
     private final String DB_DRIVER = "org.h2.Driver";
 
     private DatabaseHandler() {
-        System.out.println("Database constructor");
         try {
             Class.forName(DB_DRIVER);
             connection = DriverManager.getConnection(DB_URL + File.separator + "Base");
             RunScript.execute(connection, new FileReader("dataBase/script.sql"));
-        } catch (SQLException | ClassNotFoundException ex) {
-            System.out.println("БД Подключена");
+        } catch (Exception ex) {
             System.err.println(ex.getMessage());
-        } catch (Exception e) {
-            System.out.println("Не удалось подключиться к базе данных");
-            System.err.println(e.getMessage());
         }
     }
 
@@ -63,8 +58,7 @@ public final class DatabaseHandler {
                 );
             }
         } catch (SQLException ex) {
-            System.out.println("Ошибка при подключении к базе данных!");
-            ex.printStackTrace();
+            System.err.println(ex.getMessage());
         }
         return user;
     }
@@ -104,7 +98,7 @@ public final class DatabaseHandler {
             statement.execute();
             return true;
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println(ex.getMessage());
         }
         return false;
     }
@@ -117,7 +111,6 @@ public final class DatabaseHandler {
                 "INSERT INTO `USER` (`LOGIN`, `PASSWORD`, `NAME`, `SURNAME`, `FATHERNAME`, `CITY`, `STREET`, `HOUSE`, `FLAT`) " +
                         "VALUES(?,?,?,?,?,?,?,?,?)", generatedColumns
         )) {
-            System.out.println("Data base addUser");
             statement.setString(1, login);
             statement.setString(2, password);
             statement.setString(3, firstName);
@@ -186,7 +179,7 @@ public final class DatabaseHandler {
                 ));
             }
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println(ex.getMessage());
         }
         return bills;
     }
@@ -227,7 +220,7 @@ public final class DatabaseHandler {
                 ));
             }
         } catch (SQLException ex) {
-            System.out.println(ex);
+            System.out.println(ex.getMessage());
         }
         return bills;
     }
